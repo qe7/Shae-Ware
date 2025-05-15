@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "shaeware",
+  "version": "${version}",
+  "name": "ShaeWare",
+  "description": "The moggest modifications of mog modifications..",
+  "authors": [
+    "Shae"
+  ],
+  "contact": {
+    "homepage": "https://silhouette.wtf/"
+  },
+  "icon": "assets/shaeware/image/logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "wtf.silhouette.shaeware.ShaeWare"
+    ]
+  },
+  "mixins": [
+    "shaeware.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
