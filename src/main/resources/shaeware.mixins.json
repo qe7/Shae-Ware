@@ -3,6 +3,9 @@
   "package": "wtf.silhouette.shaeware.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "InGameHudMixin",
+    "KeyboardMixin",
+    "MinecraftClientMixin"
   ],
   "mixins": [
   ],
