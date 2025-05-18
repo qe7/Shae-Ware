@@ -6,7 +6,7 @@ import wtf.silhouette.shaeware.events.api.TypeEvent;
 
 @Getter
 @Setter
-public class MotionEvent implements TypeEvent {
+public final class MotionEvent implements TypeEvent {
 
   private final Type type;
 
