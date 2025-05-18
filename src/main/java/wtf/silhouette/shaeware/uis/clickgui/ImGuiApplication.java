@@ -1,10 +1,8 @@
 package wtf.silhouette.shaeware.uis.clickgui;
 
 import imgui.ImGui;
-import imgui.ImGuiStyle;
 import imgui.app.Application;
 import imgui.app.Configuration;
-import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImInt;
 import imgui.type.ImString;
@@ -12,7 +10,6 @@ import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL;
 import wtf.silhouette.shaeware.ShaeWare;
 import wtf.silhouette.shaeware.features.modules.api.AbstractModule;
 import wtf.silhouette.shaeware.features.modules.api.ModuleCategory;
@@ -53,6 +50,11 @@ public class ImGuiApplication extends Application {
               if (opened) {
                 if (ImGui.checkbox("Enabled", abstractModule.isEnabled())) {
                   abstractModule.toggle();
+                }
+
+                ImGui.sameLine();
+                if (ImGui.checkbox("Drawn", abstractModule.isDrawn())) {
+                  abstractModule.setDrawn(!abstractModule.isDrawn());
                 }
 
                 String keyBindText;

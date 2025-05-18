@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wtf.silhouette.shaeware.events.impl.game.InitializeEvent;
 import wtf.silhouette.shaeware.events.impl.game.ShutdownEvent;
+import wtf.silhouette.shaeware.features.components.api.ComponentFactory;
+import wtf.silhouette.shaeware.features.components.impl.RotationComponent;
 import wtf.silhouette.shaeware.managers.api.ManagerFactory;
 import wtf.silhouette.shaeware.managers.impl.EventManager;
 import wtf.silhouette.shaeware.managers.impl.ModuleManager;
@@ -39,6 +41,8 @@ public class ShaeWare implements ClientModInitializer {
 
     ManagerFactory.register(EventManager.class, new EventManager());
     ManagerFactory.register(ModuleManager.class, new ModuleManager());
+
+    ComponentFactory.register(RotationComponent.class, new RotationComponent());
   }
 
   @Override

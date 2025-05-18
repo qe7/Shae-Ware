@@ -3,11 +3,13 @@
   "package": "wtf.silhouette.shaeware.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "ClientPlayerEntityMixin",
     "InGameHudMixin",
     "KeyboardMixin",
     "MinecraftClientMixin"
   ],
   "mixins": [
+    "PlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

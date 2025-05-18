@@ -25,14 +25,6 @@ public final class ManagerFactory {
     MANAGERS.put(clazz, manager);
   }
 
-  public static <T extends Manager<?, ?>> void unregister(Class<T> clazz) {
-    MANAGERS.remove(clazz);
-  }
-
-  public static void clearAll() {
-    MANAGERS.clear();
-  }
-
   public static boolean isRegistered(Class<?> clazz) {
     return MANAGERS.containsKey(clazz);
   }
