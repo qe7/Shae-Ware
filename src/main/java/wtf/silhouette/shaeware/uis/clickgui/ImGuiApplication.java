@@ -30,7 +30,7 @@ public class ImGuiApplication extends Application {
   private AbstractModule currentKeyListeningModule = null;
 
   private final ImInt selectedCategory = new ImInt(0);
-  private final ImInt selectedModule = new ImInt(-1);
+  private final ImInt selectedModule = new ImInt(0);
 
   @Override
   public void process() {
@@ -50,7 +50,7 @@ public class ImGuiApplication extends Application {
         boolean isSel = (selectedCategory.get() == i);
         if (ImGui.selectable(categories[i].getName(), isSel)) {
           selectedCategory.set(i);
-          selectedModule.set(-1);
+          selectedModule.set(0);
         }
       }
       ImGui.endChild();

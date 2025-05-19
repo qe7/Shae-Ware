@@ -16,7 +16,8 @@
     "accessors.ClientPlayerInteractionManagerAccessor"
   ],
   "mixins": [
-    "ClientConnectionMixin"
+    "ClientConnectionMixin",
+    "EntityVelocityUpdateS2CPacketMixin"
   ],
   "injectors": {
     "defaultRequire": 1
