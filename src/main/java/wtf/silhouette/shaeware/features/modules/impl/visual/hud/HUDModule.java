@@ -53,6 +53,10 @@ public final class HUDModule extends AbstractModule {
         continue;
       }
 
+      if (!module.isDrawn()) {
+        continue;
+      }
+
       if (module.getCategory() == ModuleCategory.VISUAL && excludeVisual.getValue()) {
         continue;
       }
