@@ -11,6 +11,7 @@ import wtf.silhouette.shaeware.events.impl.player.MovementInputEvent;
 import wtf.silhouette.shaeware.events.impl.player.StrafeEvent;
 import wtf.silhouette.shaeware.features.components.api.Component;
 import wtf.silhouette.shaeware.features.modules.api.settings.impl.interfaces.IEnumSetting;
+import wtf.silhouette.shaeware.features.modules.impl.movement.MovementFixModule;
 import wtf.silhouette.shaeware.managers.api.ManagerFactory;
 import wtf.silhouette.shaeware.managers.impl.EventManager;
 import wtf.silhouette.shaeware.utils.player.MovementUtil;
@@ -43,11 +44,11 @@ public final class RotationComponent extends Component {
     this.setRotating(false);
 
     if (this.getNextRotation() != null) {
+      this.setRotating(true);
       event.setYaw(this.getNextRotation()[0]);
       event.setPitch(this.getNextRotation()[1]);
       this.setNextRotation(null);
       this.setMovementFix(MovementFixMode.OFF);
-      this.setRotating(true);
     }
 
     this.setCurrentRotation(new float[]{event.getYaw(), event.getPitch()});
@@ -74,10 +75,17 @@ public final class RotationComponent extends Component {
     }
   };
 
-  public void setNextRotation(final float[] rotations, final MovementFixMode movementFix) {
+  public void setNextRotations(final float[] rotations) {
     if (this.getNextRotation() == null) {
       this.setNextRotation(rotations);
-      this.setMovementFix(movementFix);
+      this.setMovementFix(MovementFixModule.getFixModeEnumSetting().getValue().getMovementFixMode());
+    }
+  }
+
+  public void setNextRotations(final float[] rotations, final MovementFixMode movementFixMode) {
+    if (this.getNextRotation() == null) {
+      this.setNextRotations(rotations);
+      this.setMovementFix(movementFixMode);
     }
   }
 
