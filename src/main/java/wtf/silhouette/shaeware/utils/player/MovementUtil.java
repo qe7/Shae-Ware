@@ -1,5 +1,6 @@
 package wtf.silhouette.shaeware.utils.player;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.MathHelper;
@@ -7,17 +8,17 @@ import net.minecraft.util.math.Vec3d;
 import wtf.silhouette.shaeware.utils.IMinecraft;
 import wtf.silhouette.shaeware.utils.MathUtil;
 
-public final class MovementUtil implements IMinecraft {
+public final class MovementUtil {
 
   private MovementUtil() {
     throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
   }
 
   public static boolean isMoving() {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return false;
     }
-    return mc.player.input.movementForward != 0 || mc.player.input.movementSideways != 0;
+    return MinecraftClient.getInstance().player.input.movementForward != 0 || MinecraftClient.getInstance().player.input.movementSideways != 0;
   }
 
   public static float direction(float rotationYaw, final double moveForward, final double moveStrafing) {
@@ -35,14 +36,14 @@ public final class MovementUtil implements IMinecraft {
   }
 
   public static float direction() {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return 0.0F;
     }
-    return direction(mc.player.getYaw(), mc.player.input.movementForward, mc.player.input.movementSideways);
+    return direction(MinecraftClient.getInstance().player.getYaw(), MinecraftClient.getInstance().player.input.movementForward, MinecraftClient.getInstance().player.input.movementSideways);
   }
 
   public static void fixMovement(final float yaw) {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return;
     }
 
@@ -69,36 +70,36 @@ public final class MovementUtil implements IMinecraft {
       }
     }
 
-    mc.player.input.movementForward = closestForward;
-    mc.player.input.movementSideways = closestStrafe;
+    MinecraftClient.getInstance().player.input.movementForward = closestForward;
+    MinecraftClient.getInstance().player.input.movementSideways = closestStrafe;
   }
 
   public static void strafe(double speed) {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return;
     }
 
-    strafe(mc.player.getYaw(), speed);
+    strafe(MinecraftClient.getInstance().player.getYaw(), speed);
   }
 
   public static void strafe(float yaw, double speed) {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return;
     }
 
     float direction = (float) Math.toRadians(yaw);
-    Vec3d velocity = mc.player.getVelocity();
+    Vec3d velocity = MinecraftClient.getInstance().player.getVelocity();
 
-    mc.player.setVelocity(-Math.sin(direction) * speed, velocity.y, Math.cos(direction) * speed);
+    MinecraftClient.getInstance().player.setVelocity(-Math.sin(direction) * speed, velocity.y, Math.cos(direction) * speed);
   }
 
   public static double getBaseSpeed(double baseSpeed) {
-    if (mc.player == null) {
+    if (MinecraftClient.getInstance().player == null) {
       return 0.0D;
     }
 
-    StatusEffectInstance speedEffect = mc.player.getStatusEffect(StatusEffects.SPEED);
-    StatusEffectInstance slowdownEffect = mc.player.getStatusEffect(StatusEffects.SLOWNESS);
+    StatusEffectInstance speedEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SPEED);
+    StatusEffectInstance slowdownEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SLOWNESS);
 
     if (speedEffect != null && speedEffect.getEffectType() == StatusEffects.SPEED) {
       baseSpeed *= 1 + 0.2 * (speedEffect.getAmplifier() + 1);
