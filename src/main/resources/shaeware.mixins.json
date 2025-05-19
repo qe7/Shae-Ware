@@ -13,7 +13,7 @@
     "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerEntityRendererMixin",
-    "accessors.IClientPlayerInteractionManagerAccessor"
+    "accessors.ClientPlayerInteractionManagerAccessor"
   ],
   "mixins": [
     "ClientConnectionMixin"
