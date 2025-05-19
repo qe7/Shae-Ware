@@ -63,7 +63,7 @@ public final class HUDModule extends AbstractModule {
       final int x = event.context().getScaledWindowWidth() - textRenderer.getWidth(name);
 
       drawContext.drawText(textRenderer, name, x - 2, offset + 2, this.color.getValue().getRGB(), true);
-      offset += (textRenderer.fontHeight);
+      offset += (textRenderer.fontHeight + 1);
     }
   };
 }
