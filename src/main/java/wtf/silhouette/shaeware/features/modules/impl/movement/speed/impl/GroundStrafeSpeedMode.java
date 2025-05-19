@@ -29,7 +29,7 @@ public final class GroundStrafeSpeedMode extends AbstractModuleMode<SpeedModule>
     }
 
     if (!MovementUtil.isMoving()) {
-      if (!mc.options.jumpKey.isPressed()) mc.options.jumpKey.setPressed(false);
+      mc.options.jumpKey.setPressed(false);
       return;
     }
 
