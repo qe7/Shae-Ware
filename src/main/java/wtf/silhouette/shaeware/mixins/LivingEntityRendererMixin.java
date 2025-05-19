@@ -10,7 +10,6 @@ import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import net.minecraft.util.math.Vec2f;
 import wtf.silhouette.shaeware.features.components.api.ComponentFactory;
 import wtf.silhouette.shaeware.features.components.impl.RotationComponent;
 

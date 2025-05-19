@@ -13,7 +13,7 @@ import wtf.silhouette.shaeware.utils.IMinecraft;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin implements IMinecraft {
+public final class LivingEntityMixin implements IMinecraft {
 
   @Redirect(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
   public float redirectYaw(LivingEntity entity) {
