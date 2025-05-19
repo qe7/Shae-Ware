@@ -55,26 +55,26 @@ public final class RotationComponent extends Component {
 
   @SubscribeEvent
   private final Listener<MovementInputEvent> movementInputEventListener = event -> {
-    if (this.getMovementFix() == MovementFixMode.ADVANCED) {
+    if (this.getNextRotation() != null && this.getMovementFix() == MovementFixMode.ADVANCED) {
       MovementUtil.fixMovement(this.getNextRotation()[0]);
     }
   };
 
   @SubscribeEvent
   private final Listener<StrafeEvent> strafeEventListener = event -> {
-    if (this.getMovementFix() != MovementFixMode.OFF) {
+    if (this.getNextRotation() != null && this.getMovementFix() != MovementFixMode.OFF) {
       event.setYaw(this.getNextRotation()[0]);
     }
   };
 
   @SubscribeEvent
   private final Listener<JumpEvent> jumpEventListener = event -> {
-    if (this.getMovementFix() != MovementFixMode.OFF) {
+    if (this.getNextRotation() != null && this.getMovementFix() != MovementFixMode.OFF) {
       event.setYaw(this.getNextRotation()[0]);
     }
   };
 
-  private void setNextRotations(final float[] rotations, final MovementFixMode movementFix) {
+  public void setNextRotation(final float[] rotations, final MovementFixMode movementFix) {
     if (this.getNextRotation() == null) {
       this.setNextRotation(rotations);
       this.setMovementFix(movementFix);

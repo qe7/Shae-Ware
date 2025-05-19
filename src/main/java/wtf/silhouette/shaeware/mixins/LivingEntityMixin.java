@@ -47,21 +47,6 @@ public abstract class LivingEntityMixin implements IMinecraft {
     return original;
   }
 
-  @ModifyExpressionValue(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
-  private float modifyGetYaw(float original) {
-    if ((Object) this != mc.player) return original;
-    if (MinecraftClient.getInstance().player == null) return original;
-
-    float forward = Math.signum(mc.player.input.movementForward);
-    float strafe = 90 * Math.signum(mc.player.input.movementSideways);
-    if (forward != 0) strafe *= (forward * 0.5f);
-
-    original -= strafe;
-    if (forward < 0) original -= 180;
-
-    return original;
-  }
-
   @Redirect(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
   public float redirectYaw(LivingEntity entity) {
     if (entity == MinecraftClient.getInstance().player) {
