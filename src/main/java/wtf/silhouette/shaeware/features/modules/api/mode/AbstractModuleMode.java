@@ -5,12 +5,13 @@ import lombok.Setter;
 import wtf.silhouette.shaeware.events.api.Handler;
 import wtf.silhouette.shaeware.features.modules.api.AbstractModule;
 import wtf.silhouette.shaeware.features.modules.api.settings.AbstractSetting;
+import wtf.silhouette.shaeware.utils.IMinecraft;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-public class AbstractModuleMode<T extends AbstractModule> implements Handler {
+public class AbstractModuleMode<T extends AbstractModule> implements IMinecraft, Handler {
 
   @Getter
   private final List<AbstractSetting<?>> abstractSettings = new ArrayList<>();
