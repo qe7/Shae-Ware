@@ -31,6 +31,10 @@ public final class GroundSpeedMode extends AbstractModuleMode<SpeedModule> {
       return;
     }
 
+    if (!MovementUtil.isMoving()) {
+      return;
+    }
+
     float speed = this.speed.getValue();
 
     StatusEffectInstance speedEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SPEED);
@@ -45,7 +49,7 @@ public final class GroundSpeedMode extends AbstractModuleMode<SpeedModule> {
     }
 
     if (mc.player.isOnGround()) {
-      MovementUtil.strafe(speed);
+      MovementUtil.setSpeed(speed);
     }
   };
 }
