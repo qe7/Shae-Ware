@@ -23,10 +23,7 @@ public final class PlayerEntityRendererMixin {
   @Unique
   private long pitchToggleTime = 0;
 
-  @Inject(
-          method = "updateRenderState(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/render/entity/state/PlayerEntityRenderState;F)V",
-          at = @At("RETURN")
-  )
+  @Inject(method = "updateRenderState(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/render/entity/state/PlayerEntityRenderState;F)V", at = @At("RETURN"))
   private void updateRenderStateRotations(AbstractClientPlayerEntity player, PlayerEntityRenderState state, float tickDelta, CallbackInfo info) {
     if (player == MinecraftClient.getInstance().player) {
       RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
