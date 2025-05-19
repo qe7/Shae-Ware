@@ -31,7 +31,7 @@ public class ShaeWare implements ClientModInitializer {
   public ShaeWare() {
     instance = this;
 
-    this.name = "Shae Ware";
+    this.name = "XIII";
     this.version = "1.0.0";
     this.modId = name.toLowerCase().replace(" ", "");
 
