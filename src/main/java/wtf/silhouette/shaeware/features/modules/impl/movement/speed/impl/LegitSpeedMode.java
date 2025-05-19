@@ -5,6 +5,7 @@ import wtf.silhouette.shaeware.events.api.SubscribeEvent;
 import wtf.silhouette.shaeware.events.impl.player.MotionEvent;
 import wtf.silhouette.shaeware.features.modules.api.mode.AbstractModuleMode;
 import wtf.silhouette.shaeware.features.modules.impl.movement.speed.SpeedModule;
+import wtf.silhouette.shaeware.utils.player.MovementUtil;
 
 public final class LegitSpeedMode extends AbstractModuleMode<SpeedModule> {
 
@@ -22,6 +23,11 @@ public final class LegitSpeedMode extends AbstractModuleMode<SpeedModule> {
   @SubscribeEvent
   private final Listener<MotionEvent> motionEventListener = event -> {
     if (mc.world == null || mc.player == null) {
+      return;
+    }
+
+    if (!MovementUtil.isMoving()) {
+      if (!mc.options.jumpKey.isPressed()) mc.options.jumpKey.setPressed(false);
       return;
     }
 
