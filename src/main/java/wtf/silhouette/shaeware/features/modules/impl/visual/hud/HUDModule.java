@@ -30,7 +30,7 @@ public final class HUDModule extends AbstractModule {
   }
 
   @SubscribeEvent
-  private final Listener<ScreenEvent> onScreen = event -> {
+  private final Listener<ScreenEvent> screenEventListener = event -> {
     final DrawContext drawContext = event.context();
     final TextRenderer textRenderer = mc.textRenderer;
 

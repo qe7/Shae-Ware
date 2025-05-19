@@ -122,7 +122,7 @@ public final class ModuleManager extends Manager<Class<? extends AbstractModule>
   }
 
   @SubscribeEvent
-  private final Listener<KeyPressEvent> onKeyPress = event -> {
+  private final Listener<KeyPressEvent> keyPressEventListener = event -> {
     final int key = event.keyCode();
 
     if (key == -1 || (GLFW.glfwGetKey(MinecraftClient.getInstance().getWindow().getHandle(), key) != GLFW.GLFW_PRESS) || MinecraftClient.getInstance().currentScreen != null) {
@@ -137,8 +137,8 @@ public final class ModuleManager extends Manager<Class<? extends AbstractModule>
   };
 
   @SubscribeEvent
-  private final Listener<InitializeEvent> onInitialize = event -> this.initialize();
+  private final Listener<InitializeEvent> initializeEventListener = event -> this.initialize();
 
   @SubscribeEvent
-  private final Listener<ShutdownEvent> onShutdown = event -> this.shutdown();
+  private final Listener<ShutdownEvent> shutdownEventListener = event -> this.shutdown();
 }
