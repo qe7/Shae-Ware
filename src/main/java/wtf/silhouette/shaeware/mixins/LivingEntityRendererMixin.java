@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import net.minecraft.util.math.Vec2f;
 import wtf.silhouette.shaeware.features.components.api.ComponentFactory;
 import wtf.silhouette.shaeware.features.components.impl.RotationComponent;
 
@@ -32,7 +33,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
-    boolean isRotating = rotationComponent.isRotating();
+    boolean isRotating = rotationComponent.isActivelyRotating();
     long currentTime = System.currentTimeMillis();
 
     if (isRotating != wasRotating) {
@@ -53,9 +54,9 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     if (isRotating) {
-      float[] currentRotation = rotationComponent.getCurrentRotation();
-      if (currentRotation != null) {
-        float targetRot = currentRotation[0] % 360.0f;
+      Vec2f rot = rotationComponent.getCurrentRotation();
+      if (rot != null) {
+        float targetRot = rot.x % 360.0f;
         float currentRot = lastRotX % 360.0f;
 
         float angleDiff = MathHelper.wrapDegrees(targetRot - currentRot);
@@ -70,6 +71,47 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
         lastRotX = currentRot + angleDiff * t;
         return lastRotX;
 
+      }
+    }
+
+    return original;
+  }
+
+  @ModifyExpressionValue(
+          method = "updateRenderState(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;F)V",
+          at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;clampBodyYaw(Lnet/minecraft/entity/LivingEntity;FF)F")
+  )
+  private float hookBodyYaw(float original, LivingEntity entity, S state, float tickDelta) {
+    if (entity != MinecraftClient.getInstance().player) {
+      return original;
+    }
+
+    RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
+    boolean isRotating = rotationComponent.isActivelyRotating();
+    long currentTime = System.currentTimeMillis();
+
+    if (isRotating != wasRotating) {
+      wasRotating = isRotating;
+      rotationToggleTime = currentTime;
+    }
+
+    long timeSinceToggle = currentTime - rotationToggleTime;
+    if (timeSinceToggle < 50) {
+      float t = timeSinceToggle / 50f;
+      t = MathHelper.clamp(t, 0.0f, 1.0f);
+
+      if (isRotating) {
+        return MathHelper.lerpAngleDegrees(t, original, lastRotX);
+      } else {
+        return MathHelper.lerpAngleDegrees(t, lastRotX, original);
+      }
+    }
+
+    if (isRotating) {
+      Vec2f rot = rotationComponent.getCurrentRotation();
+      if (rot != null) {
+        lastRotX = MathHelper.lerpAngleDegrees(0.22f, lastRotX, rot.x);
+        return lastRotX;
       }
     }
 

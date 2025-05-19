@@ -7,14 +7,22 @@ import wtf.silhouette.shaeware.features.modules.api.AbstractModule;
 import wtf.silhouette.shaeware.features.modules.api.ModuleCategory;
 import wtf.silhouette.shaeware.features.modules.api.settings.impl.EnumSetting;
 import wtf.silhouette.shaeware.features.modules.api.settings.impl.interfaces.IEnumSetting;
+import wtf.silhouette.shaeware.managers.api.ManagerFactory;
+import wtf.silhouette.shaeware.managers.impl.ModuleManager;
 
 public final class MovementFixModule extends AbstractModule {
 
-  @Getter
   private static final EnumSetting<FixMode> fixModeEnumSetting = new EnumSetting<>("Mode", FixMode.OFF);
 
   public MovementFixModule() {
     super("Movement Fix", "Makes the clients rotations always abide by Minecraft's strafing.", ModuleCategory.MOVEMENT);
+  }
+
+  public static RotationComponent.MovementFixMode getMovementFixMode() {
+    if (!ManagerFactory.get(ModuleManager.class).get(MovementFixModule.class).isEnabled()) {
+      return RotationComponent.MovementFixMode.OFF;
+    }
+    return fixModeEnumSetting.getValue().getMovementFixMode();
   }
 
   @AllArgsConstructor
