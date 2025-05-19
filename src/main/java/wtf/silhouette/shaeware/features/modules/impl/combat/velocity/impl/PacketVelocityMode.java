@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.features.modules.impl.combat;
+package wtf.silhouette.shaeware.features.modules.impl.combat.velocity.impl;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
@@ -6,23 +6,30 @@ import wtf.silhouette.shaeware.events.api.Listener;
 import wtf.silhouette.shaeware.events.api.SubscribeEvent;
 import wtf.silhouette.shaeware.events.impl.game.PacketEvent;
 import wtf.silhouette.shaeware.events.impl.render.ScreenEvent;
-import wtf.silhouette.shaeware.features.modules.api.AbstractModule;
-import wtf.silhouette.shaeware.features.modules.api.ModuleCategory;
+import wtf.silhouette.shaeware.features.modules.api.mode.AbstractModuleMode;
 import wtf.silhouette.shaeware.features.modules.api.settings.impl.IntSetting;
+import wtf.silhouette.shaeware.features.modules.impl.combat.velocity.VelocityModule;
 import wtf.silhouette.shaeware.utils.mixin.IEntityVelocityUpdateS2CPacketMixin;
 
-public final class VelocityModule extends AbstractModule {
+import java.util.function.BooleanSupplier;
+
+public final class PacketVelocityMode extends AbstractModuleMode<VelocityModule> {
 
   private final IntSetting horizontal = new IntSetting("Horizontal", 0, 0, 100, 1);
   private final IntSetting vertical = new IntSetting("Vertical", 0, 0, 100, 1);
 
-  public VelocityModule() {
-    super("Anti Velocity", "Reduced or removes velocity.", ModuleCategory.COMBAT);
+  public PacketVelocityMode(VelocityModule module, String name) {
+    super(module, name);
+
+    BooleanSupplier booleanSupplier = () -> module.getMode().getValue() instanceof PacketVelocityMode;
+
+    horizontal.supplyIf(booleanSupplier);
+    vertical.supplyIf(booleanSupplier);
   }
 
   @SubscribeEvent
   private final Listener<ScreenEvent> screenEventListener = event -> {
-    this.setSuffix(String.format("%s %s", horizontal.getValue() + "%", vertical.getValue() + "%"));
+    module.setSuffix(String.format("%s %s", horizontal.getValue() + "%", vertical.getValue() + "%"));
   };
 
   @SubscribeEvent
@@ -31,12 +38,12 @@ public final class VelocityModule extends AbstractModule {
       return;
     }
 
-    if (MinecraftClient.getInstance().player == null) {
+    if (mc.player == null) {
       return;
     }
 
     if (event.getPacket() instanceof EntityVelocityUpdateS2CPacket packet) {
-      if (packet.getEntityId() != MinecraftClient.getInstance().player.getId()) {
+      if (packet.getEntityId() != mc.player.getId()) {
         return;
       }
 
@@ -44,11 +51,11 @@ public final class VelocityModule extends AbstractModule {
         event.setCancelled(true);
 
         if (vertical.getValue() > 0) {
-          final double x = MinecraftClient.getInstance().player.getVelocity().x;
+          final double x = mc.player.getVelocity().x;
           final double y = packet.getVelocityY();
-          final double z = MinecraftClient.getInstance().player.getVelocity().z;
+          final double z = mc.player.getVelocity().z;
 
-          MinecraftClient.getInstance().player.setVelocity(x, y, z);
+          mc.player.setVelocity(x, y, z);
         }
       }
 
