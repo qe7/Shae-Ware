@@ -31,7 +31,7 @@ public final class PlayerEntityRendererMixin {
   private void updateRenderStateRotations(AbstractClientPlayerEntity player, PlayerEntityRenderState state, float tickDelta, CallbackInfo info) {
     if (player == MinecraftClient.getInstance().player) {
       RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
-      boolean isRotating = rotationComponent.isActivelyRotating();
+      boolean isRotating = rotationComponent.isRotating();
       long currentTime = System.currentTimeMillis();
 
       if (isRotating != wasRotating) {
@@ -51,9 +51,9 @@ public final class PlayerEntityRendererMixin {
           state.pitch = MathHelper.lerpAngleDegrees(t, lastPitch, state.pitch);
         }
       } else if (isRotating) {
-        Vec2f rotation = rotationComponent.getCurrentRotation();
+        float[] rotation = rotationComponent.getCurrentRotation();
         if (rotation != null) {
-          float targetPitch = rotation.y % 360.0f;
+          float targetPitch = rotation[1] % 360.0f;
           float currentPitch = lastPitch % 360.0f;
 
           float angleDiff = MathHelper.wrapDegrees(targetPitch - currentPitch);

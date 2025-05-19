@@ -78,7 +78,7 @@ public final class RotationComponent extends Component {
   public void setNextRotations(final float[] rotations) {
     if (this.getNextRotation() == null) {
       this.setNextRotation(rotations);
-      this.setMovementFix(MovementFixModule.getFixModeEnumSetting().getValue().getMovementFixMode());
+      this.setMovementFix(MovementFixModule.getMovementFixMode());
     }
   }
 

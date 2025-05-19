@@ -33,7 +33,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
-    boolean isRotating = rotationComponent.isActivelyRotating();
+    boolean isRotating = rotationComponent.isRotating();
     long currentTime = System.currentTimeMillis();
 
     if (isRotating != wasRotating) {
@@ -54,9 +54,9 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     if (isRotating) {
-      Vec2f rot = rotationComponent.getCurrentRotation();
+      float[] rot = rotationComponent.getCurrentRotation();
       if (rot != null) {
-        float targetRot = rot.x % 360.0f;
+        float targetRot = rot[0] % 360.0f;
         float currentRot = lastRotX % 360.0f;
 
         float angleDiff = MathHelper.wrapDegrees(targetRot - currentRot);
@@ -87,7 +87,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     RotationComponent rotationComponent = ComponentFactory.get(RotationComponent.class);
-    boolean isRotating = rotationComponent.isActivelyRotating();
+    boolean isRotating = rotationComponent.isRotating();
     long currentTime = System.currentTimeMillis();
 
     if (isRotating != wasRotating) {
@@ -108,9 +108,9 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
     }
 
     if (isRotating) {
-      Vec2f rot = rotationComponent.getCurrentRotation();
+      float[] rot = rotationComponent.getCurrentRotation();
       if (rot != null) {
-        lastRotX = MathHelper.lerpAngleDegrees(0.22f, lastRotX, rot.x);
+        lastRotX = MathHelper.lerpAngleDegrees(0.22f, lastRotX, rot[0]);
         return lastRotX;
       }
     }
