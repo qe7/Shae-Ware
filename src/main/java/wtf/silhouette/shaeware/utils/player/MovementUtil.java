@@ -1,11 +1,10 @@
 package wtf.silhouette.shaeware.utils.player;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import wtf.silhouette.shaeware.utils.IMinecraft;
 import wtf.silhouette.shaeware.utils.MathUtil;
 
 public final class MovementUtil {
@@ -74,23 +73,46 @@ public final class MovementUtil {
     MinecraftClient.getInstance().player.input.movementSideways = closestStrafe;
   }
 
-  public static void strafe(double speed) {
+  public static float getMovementDirection(final float yaw, final float forward, final float strafe) {
     if (MinecraftClient.getInstance().player == null) {
-      return;
+      return 0;
     }
 
-    strafe(MinecraftClient.getInstance().player.getYaw(), speed);
+    final boolean backwards = forward < 0;
+    float direction = yaw;
+
+    if (backwards) {
+      direction += 180.0f;
+    }
+
+    final float strafeSign = Math.signum(strafe);
+    final float forwardSign = Math.signum(forward);
+    direction -= 90.0f * strafeSign / (backwards ? -1 : 1);
+
+    if (strafeSign != 0) {
+      direction += forwardSign * strafeSign * 45.0f;
+    }
+
+    return direction;
   }
 
-  public static void strafe(float yaw, double speed) {
+  public static void setSpeed(double speed) {
     if (MinecraftClient.getInstance().player == null) {
       return;
     }
 
-    float direction = (float) Math.toRadians(yaw);
-    Vec3d velocity = MinecraftClient.getInstance().player.getVelocity();
+    final AbstractClientPlayerEntity player = MinecraftClient.getInstance().player;
+    final float forward = player.forwardSpeed;
+    final float strafe = player.sidewaysSpeed;
 
-    MinecraftClient.getInstance().player.setVelocity(-Math.sin(direction) * speed, velocity.y, Math.cos(direction) * speed);
+    if (forward == 0 && strafe == 0) {
+      return;
+    }
+
+    final float dir = getMovementDirection(player.getYaw(), forward, strafe);
+    final double rad = Math.toRadians(dir);
+
+    player.setVelocity(-Math.sin(rad) * speed, player.getVelocity().y, Math.cos(rad) * speed);
   }
 
   public static double getBaseSpeed(double baseSpeed) {
