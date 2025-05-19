@@ -29,65 +29,82 @@ public class ImGuiApplication extends Application {
   private boolean listeningForKey = false;
   private AbstractModule currentKeyListeningModule = null;
 
+  private final ImInt selectedCategory = new ImInt(0);
+  private final ImInt selectedModule = new ImInt(-1);
+
   @Override
   public void process() {
     if (!ShaeWare.getInstance().isInitialized()) {
       return;
     }
-    if (ImGui.begin(ShaeWare.getInstance().getName(), ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize)) {
-      ImGui.setWindowSize(500, 400);
-      if (ImGui.beginTabBar("Categories")) {
-        for (ModuleCategory value : ModuleCategory.values()) {
-          if (ImGui.beginTabItem(value.getName())) {
-            List<AbstractModule> abstractModules = ManagerFactory.get(ModuleManager.class).getModulesByCategory(value);
 
-            abstractModules.sort(Comparator.comparing(AbstractModule::getName));
+    if (ImGui.begin(ShaeWare.getInstance().getName(), ImGuiWindowFlags.NoCollapse)) {
+      ImGui.columns(3, "main_columns", false);
+      ImGui.setColumnWidth(0, 150);
+      ImGui.setColumnWidth(1, 150);
+      ImGui.setColumnWidth(2, ImGui.getWindowWidth() - 300);
 
-            for (AbstractModule abstractModule : abstractModules) {
-              ImGui.pushID(abstractModule.getName());
-              boolean opened = ImGui.collapsingHeader(abstractModule.getName());
+      ImGui.beginChild("categories_panel", 0, 0, true);
+      ModuleCategory[] categories = ModuleCategory.values();
+      for (int i = 0; i < categories.length; i++) {
+        boolean isSel = (selectedCategory.get() == i);
+        if (ImGui.selectable(categories[i].getName(), isSel)) {
+          selectedCategory.set(i);
+          selectedModule.set(-1);
+        }
+      }
+      ImGui.endChild();
+      ImGui.nextColumn();
 
-              if (opened) {
-                if (ImGui.checkbox("Enabled", abstractModule.isEnabled())) {
-                  abstractModule.toggle();
-                }
+      ImGui.beginChild("modules_panel", 0, 0, true);
+      List<AbstractModule> modules = ManagerFactory.get(ModuleManager.class).getModulesByCategory(categories[selectedCategory.get()]);
+      modules.sort(Comparator.comparing(AbstractModule::getName));
 
-                ImGui.sameLine();
-                if (ImGui.checkbox("Drawn", abstractModule.isDrawn())) {
-                  abstractModule.setDrawn(!abstractModule.isDrawn());
-                }
+      for (int i = 0; i < modules.size(); i++) {
+        AbstractModule mod = modules.get(i);
+        boolean isSel = (selectedModule.get() == i);
+        if (ImGui.selectable(mod.getName(), isSel)) {
+          selectedModule.set(i);
+        }
+      }
+      ImGui.endChild();
+      ImGui.nextColumn();
 
-                String keyBindText;
-                if (listeningForKey && currentKeyListeningModule == abstractModule) {
-                  keyBindText = "Press any key...";
-                } else {
-                  keyBindText = "Key: " + (abstractModule.getKeyBind() == GLFW.GLFW_KEY_UNKNOWN ? "None" : InputUtil.fromKeyCode(abstractModule.getKeyBind(), 0).getLocalizedText().getString());
-                }
+      ImGui.beginChild("settings_panel", 0, 0, true);
+      int modIndex = selectedModule.get();
+      if (modIndex >= 0 && modIndex < modules.size()) {
+        AbstractModule active = modules.get(modIndex);
+        ImGui.pushID(active.getName());
+        ImGui.text("Module: " + active.getName());
+        ImGui.separator();
 
-                ImGui.sameLine();
-                if (ImGui.button(keyBindText)) {
-                  listeningForKey = !listeningForKey;
-                  currentKeyListeningModule = listeningForKey ? abstractModule : null;
-                }
+        if (ImGui.checkbox("Enabled", active.isEnabled())) active.toggle();
+        ImGui.sameLine();
+        if (ImGui.checkbox("Drawn", active.isDrawn())) active.setDrawn(!active.isDrawn());
 
-                List<AbstractSetting<?>> properties = ManagerFactory.get(ModuleManager.class).getSettingsByModule(abstractModule);
+        String keyText = listeningForKey && currentKeyListeningModule == active ? "Press any key..." : "Key: " + (active.getKeyBind() == GLFW.GLFW_KEY_UNKNOWN ? "None" : InputUtil.fromKeyCode(active.getKeyBind(), 0).getLocalizedText().getString());
+        ImGui.sameLine();
+        if (ImGui.button(keyText)) {
+          listeningForKey = !listeningForKey;
+          currentKeyListeningModule = listeningForKey ? active : null;
+        }
 
-                if (!properties.isEmpty()) {
-                  ImGui.separator();
-
-                  for (AbstractSetting<?> property : properties) {
-                    if (property.shouldHide()) continue;
-                    renderSetting(property);
-                  }
-                }
-              }
-              ImGui.popID();
-            }
-            ImGui.endTabItem();
+        List<AbstractSetting<?>> settings = ManagerFactory.get(ModuleManager.class).getSettingsByModule(active);
+        if (!settings.isEmpty()) {
+          ImGui.separator();
+          for (AbstractSetting<?> setting : settings) {
+            if (setting.shouldHide()) continue;
+            renderSetting(setting);
           }
         }
-        ImGui.endTabBar();
+
+        ImGui.popID();
+      } else {
+        ImGui.text("Select a module to see settings.");
       }
+      ImGui.endChild();
+
+      ImGui.columns(1);
       ImGui.end();
     }
   }
