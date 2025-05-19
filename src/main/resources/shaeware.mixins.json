@@ -10,6 +10,7 @@
     "MinecraftClientMixin"
   ],
   "mixins": [
+    "EntityMixin",
     "PlayerEntityMixin"
   ],
   "injectors": {
