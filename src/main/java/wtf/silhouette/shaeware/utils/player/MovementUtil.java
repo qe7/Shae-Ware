@@ -9,6 +9,8 @@ import wtf.silhouette.shaeware.utils.MathUtil;
 
 public final class MovementUtil {
 
+  public static final double WALK_SPEED = 0.2873;
+
   private MovementUtil() {
     throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
   }
