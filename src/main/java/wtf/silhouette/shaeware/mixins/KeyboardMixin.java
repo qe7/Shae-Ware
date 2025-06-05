@@ -5,9 +5,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.silhouette.shaeware.events.impl.game.KeyPressEvent;
-import wtf.silhouette.shaeware.managers.api.ManagerFactory;
-import wtf.silhouette.shaeware.managers.impl.EventManager;
+import wtf.silhouette.shaeware.core.bus.impl.game.KeyPressEvent;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 
 @Mixin(Keyboard.class)
 public final class KeyboardMixin {

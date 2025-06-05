@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.silhouette.shaeware.events.impl.game.PacketEvent;
-import wtf.silhouette.shaeware.managers.api.ManagerFactory;
-import wtf.silhouette.shaeware.managers.impl.EventManager;
+import wtf.silhouette.shaeware.core.bus.impl.game.PacketEvent;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.utils.mixin.IClientConnectionMixin;
 
 import java.util.Queue;

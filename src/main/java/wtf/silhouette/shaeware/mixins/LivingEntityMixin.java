@@ -6,9 +6,9 @@ import net.minecraft.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import wtf.silhouette.shaeware.events.impl.player.JumpEvent;
-import wtf.silhouette.shaeware.managers.api.ManagerFactory;
-import wtf.silhouette.shaeware.managers.impl.EventManager;
+import wtf.silhouette.shaeware.core.bus.impl.player.JumpEvent;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.utils.IMinecraft;
 
 @Environment(EnvType.CLIENT)

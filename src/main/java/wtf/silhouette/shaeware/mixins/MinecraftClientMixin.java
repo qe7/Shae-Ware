@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.silhouette.shaeware.ShaeWare;
-import wtf.silhouette.shaeware.uis.clickgui.ImGuiClickGui;
+import wtf.silhouette.shaeware.platform.gui.ImGuiClickGui;
 
 @Mixin(MinecraftClient.class)
 public final class MinecraftClientMixin {

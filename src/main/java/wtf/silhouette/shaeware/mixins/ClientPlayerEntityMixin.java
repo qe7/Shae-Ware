@@ -11,11 +11,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.silhouette.shaeware.events.impl.player.MotionEvent;
-import wtf.silhouette.shaeware.events.impl.player.SlowdownEvent;
-import wtf.silhouette.shaeware.events.impl.player.TickEvent;
-import wtf.silhouette.shaeware.managers.api.ManagerFactory;
-import wtf.silhouette.shaeware.managers.impl.EventManager;
+import wtf.silhouette.shaeware.core.bus.impl.player.MotionEvent;
+import wtf.silhouette.shaeware.core.bus.impl.player.SlowdownEvent;
+import wtf.silhouette.shaeware.core.bus.impl.player.TickEvent;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 
 @Mixin(ClientPlayerEntity.class)
 public final class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {

@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.silhouette.shaeware.features.components.api.ComponentFactory;
-import wtf.silhouette.shaeware.features.components.impl.RotationComponent;
+import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
+import wtf.silhouette.shaeware.features.components.RotationComponent;
 
 @Mixin(PlayerEntityRenderer.class)
 public final class PlayerEntityRendererMixin {

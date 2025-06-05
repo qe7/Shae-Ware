@@ -6,13 +6,13 @@ import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wtf.silhouette.shaeware.events.impl.game.InitializeEvent;
-import wtf.silhouette.shaeware.events.impl.game.ShutdownEvent;
-import wtf.silhouette.shaeware.features.components.api.ComponentFactory;
-import wtf.silhouette.shaeware.features.components.impl.RotationComponent;
-import wtf.silhouette.shaeware.managers.api.ManagerFactory;
-import wtf.silhouette.shaeware.managers.impl.EventManager;
-import wtf.silhouette.shaeware.managers.impl.ModuleManager;
+import wtf.silhouette.shaeware.core.bus.impl.game.InitializeEvent;
+import wtf.silhouette.shaeware.core.bus.impl.game.ShutdownEvent;
+import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
+import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.core.bus.EventManager;
+import wtf.silhouette.shaeware.core.feature.module.ModuleManager;
 
 @Getter
 public class ShaeWare implements ClientModInitializer {
