@@ -3,6 +3,7 @@ package wtf.silhouette.shaeware.features.modules.client;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.NotNull;
 import wtf.silhouette.shaeware.ShaeWare;
 import wtf.silhouette.shaeware.core.bus.Listener;
 import wtf.silhouette.shaeware.core.bus.SubscribeEvent;
@@ -36,7 +37,7 @@ public final class HUDModule extends AbstractModule {
     this.setEnabled(true);
   }
 
-  private Animation getOrCreateAnimation(String moduleName, Map<String, Animation> map) {
+  private @NotNull Animation getOrCreateAnimation(String moduleName, @NotNull Map<String, Animation> map) {
     Animation animation = map.get(moduleName);
     if (animation == null) {
       animation = new Animation(Easing.EASE_OUT_EXPO, 200);
@@ -61,7 +62,7 @@ public final class HUDModule extends AbstractModule {
 
     drawContext.drawText(textRenderer, string, 2, 2, color.getValue().getRGB(), true);
 
-    moduleList.sort((a, b) -> Double.compare(-textRenderer.getWidth(b.getName() + (!Objects.equals(b.getSuffix(), "") ? Formatting.WHITE + " " + b.getSuffix() : "")), -textRenderer.getWidth(a.getName() + (!Objects.equals(a.getSuffix(), "") ? Formatting.WHITE + " " + a.getSuffix() : ""))));
+    moduleList.sort((a, b) -> Double.compare(textRenderer.getWidth(b.getName() + (!Objects.equals(b.getSuffix(), "") ? Formatting.WHITE + " " + b.getSuffix() : "")), textRenderer.getWidth(a.getName() + (!Objects.equals(a.getSuffix(), "") ? Formatting.WHITE + " " + a.getSuffix() : ""))));
 
     final boolean hasBad = EffectUtil.hasBadEffects();
     final boolean hasGood = EffectUtil.hasGoodEffects();
@@ -69,7 +70,6 @@ public final class HUDModule extends AbstractModule {
 
     for (AbstractModule module : moduleList) {
       if (!module.isEnabled()) {
-        // Reset animations when module is disabled
         Animation xAnim = xAnimations.get(module.getName());
         Animation yAnim = yAnimations.get(module.getName());
         if (xAnim != null) xAnim.reset();
@@ -81,7 +81,7 @@ public final class HUDModule extends AbstractModule {
         continue;
       }
 
-      if (module.getCategory() == ModuleCategory.VISUAL && excludeVisual.getValue()) {
+      if (module.getCategory() == ModuleCategory.Render && excludeVisual.getValue()) {
         continue;
       }
 
