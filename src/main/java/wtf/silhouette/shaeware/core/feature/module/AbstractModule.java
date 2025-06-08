@@ -3,17 +3,19 @@ package wtf.silhouette.shaeware.core.feature.module;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 import wtf.silhouette.shaeware.ShaeWare;
+import wtf.silhouette.shaeware.config.Serialized;
 import wtf.silhouette.shaeware.core.bus.Handler;
 import wtf.silhouette.shaeware.core.feature.module.settings.AbstractSetting;
 import wtf.silhouette.shaeware.core.manager.ManagerFactory;
-import wtf.silhouette.shaeware.utils.IMinecraft;
-import wtf.silhouette.shaeware.config.Serialized;
 
 @Getter
 @Setter
-public abstract class AbstractModule implements Toggleable, Serialized, IMinecraft, Handler {
+public abstract class AbstractModule implements Toggleable, Serialized, Handler {
+
+  protected final MinecraftClient mc = MinecraftClient.getInstance();
 
   protected final String name;
   protected final String description;

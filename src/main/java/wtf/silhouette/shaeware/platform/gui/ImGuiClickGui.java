@@ -4,14 +4,13 @@ import imgui.app.Application;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import wtf.silhouette.shaeware.core.bus.Handler;
-import wtf.silhouette.shaeware.features.modules.client.ClickGUIModule;
-import wtf.silhouette.shaeware.core.manager.ManagerFactory;
 import wtf.silhouette.shaeware.core.bus.EventManager;
+import wtf.silhouette.shaeware.core.bus.Handler;
 import wtf.silhouette.shaeware.core.feature.module.ModuleManager;
-import wtf.silhouette.shaeware.utils.IMinecraft;
+import wtf.silhouette.shaeware.core.manager.ManagerFactory;
+import wtf.silhouette.shaeware.features.modules.client.ClickGUIModule;
 
-public final class ImGuiClickGui extends Screen implements IMinecraft, Handler {
+public final class ImGuiClickGui extends Screen implements Handler {
 
   public static final ImGuiClickGui INSTANCE = new ImGuiClickGui();
 

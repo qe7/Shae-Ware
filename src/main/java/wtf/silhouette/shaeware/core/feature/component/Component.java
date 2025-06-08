@@ -1,7 +1,9 @@
 package wtf.silhouette.shaeware.core.feature.component;
 
+import net.minecraft.client.MinecraftClient;
 import wtf.silhouette.shaeware.core.bus.Handler;
-import wtf.silhouette.shaeware.utils.IMinecraft;
 
-public abstract class Component implements IMinecraft, Handler {
+public abstract class Component implements Handler {
+
+  protected final MinecraftClient mc = MinecraftClient.getInstance();
 }

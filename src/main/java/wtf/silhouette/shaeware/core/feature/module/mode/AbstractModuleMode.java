@@ -2,16 +2,18 @@ package wtf.silhouette.shaeware.core.feature.module.mode;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.MinecraftClient;
 import wtf.silhouette.shaeware.core.bus.Handler;
 import wtf.silhouette.shaeware.core.feature.module.AbstractModule;
 import wtf.silhouette.shaeware.core.feature.module.settings.AbstractSetting;
-import wtf.silhouette.shaeware.utils.IMinecraft;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-public class AbstractModuleMode<T extends AbstractModule> implements IMinecraft, Handler {
+public class AbstractModuleMode<T extends AbstractModule> implements Handler {
+
+  protected final MinecraftClient mc = MinecraftClient.getInstance();
 
   @Getter
   private final List<AbstractSetting<?>> abstractSettings = new ArrayList<>();
