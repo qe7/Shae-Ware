@@ -14,7 +14,7 @@ public final class NoSlowdownModule extends AbstractModule {
   private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", new VanillaNoSlowdownMode(this, "Vanilla"), new WatchdogNoSlowdownMode(this, "Watchdog"));
 
   public NoSlowdownModule() {
-    super("No Slowdown", "Prevent the player from slowing down.", ModuleCategory.MOVEMENT);
+    super("NoSlowdown", "Prevent the player from slowing down.", ModuleCategory.MOVEMENT);
   }
 
   @SubscribeEvent
