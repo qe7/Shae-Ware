@@ -6,6 +6,6 @@ import wtf.silhouette.shaeware.core.feature.module.ModuleCategory;
 public final class KillAuraModule extends AbstractModule {
 
   public KillAuraModule() {
-    super("KillAura", "Automatically hits entities.", ModuleCategory.COMBAT);
+    super("Kill Aura", "Automatically hits entities.", ModuleCategory.COMBAT);
   }
 }

@@ -14,7 +14,7 @@ public final class SpinBotModule extends AbstractModule {
   private float currentPitch = -90f;
 
   public SpinBotModule() {
-    super("SpinBot", "Spin like you're anti-aiming in CSGO.", ModuleCategory.MISC);
+    super("Spin Bot", "Spin like you're anti-aiming in CSGO.", ModuleCategory.MISC);
   }
 
   @SubscribeEvent

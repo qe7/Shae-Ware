@@ -8,7 +8,7 @@ import wtf.silhouette.shaeware.platform.gui.ImGuiClickGui;
 public final class ClickGUIModule extends AbstractModule {
 
   public ClickGUIModule() {
-    super("ClickGUI", "Displays a clickable interface to manage modules.", ModuleCategory.CLIENT);
+    super("Click GUI", "Displays a clickable interface to manage modules.", ModuleCategory.CLIENT);
 
     this.setKeyBind(GLFW.GLFW_KEY_RIGHT_SHIFT);
   }

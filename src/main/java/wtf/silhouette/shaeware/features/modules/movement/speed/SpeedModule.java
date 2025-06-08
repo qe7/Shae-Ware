@@ -17,7 +17,7 @@ public final class SpeedModule extends AbstractModule {
   private final ModeSetting mode = new ModeSetting("Mode", "Legit",
           new LegitSpeedMode(this, "Legit"),
           new GroundSpeedMode(this, "Ground"),
-          new GroundStrafeSpeedMode(this, "GroundStrafe")
+          new GroundStrafeSpeedMode(this, "Ground Strafe")
   );
 
   public SpeedModule() {
