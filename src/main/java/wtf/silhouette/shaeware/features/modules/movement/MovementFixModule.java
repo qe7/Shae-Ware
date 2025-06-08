@@ -18,7 +18,7 @@ public final class MovementFixModule extends AbstractModule {
   private static final EnumSetting<FixMode> mode = new EnumSetting<>("Mode", FixMode.OFF);
 
   public MovementFixModule() {
-    super("Movement Fix", "Makes the clients rotations always abide by Minecraft's strafing.", ModuleCategory.MOVEMENT);
+    super("MovementFix", "Makes the clients rotations always abide by Minecraft's strafing.", ModuleCategory.MOVEMENT);
   }
 
   @SubscribeEvent
