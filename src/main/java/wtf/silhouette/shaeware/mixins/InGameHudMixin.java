@@ -1,5 +1,6 @@
 package wtf.silhouette.shaeware.mixins;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -17,6 +18,8 @@ public final class InGameHudMixin {
   @Inject(method = "render", at = @At("TAIL"))
   private void onRenderStart(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
     context.draw();
+
+    if (!MinecraftClient.isHudEnabled()) return;
 
     ManagerFactory.get(EventManager.class).publishEvent(new ScreenEvent(context, tickCounter));
   }
