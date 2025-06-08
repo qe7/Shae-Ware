@@ -16,13 +16,12 @@ public final class VelocityModule extends AbstractModule {
   private final ModeSetting mode = new ModeSetting("Mode", "Packet", new PacketVelocityMode(this, "Packet"), new JumpVelocityMode(this, "Jump"));
 
   public VelocityModule() {
-    super("Anti Velocity", "Reduced or removes velocity.", ModuleCategory.COMBAT);
+    super("Velocity", "Reduced or removes velocity.", ModuleCategory.COMBAT);
   }
 
   @SubscribeEvent
   private final Listener<ScreenEvent> screenEventListener = event -> {
-    if (mode.getValue() instanceof PacketVelocityMode)
-      return;
+    if (mode.getValue() instanceof PacketVelocityMode) return;
     this.setSuffix(mode.getValue().getName());
   };
 }

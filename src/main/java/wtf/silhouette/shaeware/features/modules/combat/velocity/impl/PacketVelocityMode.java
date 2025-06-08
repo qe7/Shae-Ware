@@ -33,18 +33,10 @@ public final class PacketVelocityMode extends AbstractModuleMode<VelocityModule>
 
   @SubscribeEvent
   private final Listener<PacketEvent> packetEventListener = event -> {
-    if (!event.isIncoming()) {
-      return;
-    }
-
-    if (mc.player == null) {
-      return;
-    }
+    if (!event.isIncoming() || mc.player == null) return;
 
     if (event.getPacket() instanceof EntityVelocityUpdateS2CPacket packet) {
-      if (packet.getEntityId() != mc.player.getId()) {
-        return;
-      }
+      if (packet.getEntityId() != mc.player.getId()) return;
 
       if (horizontal.getValue() == 0) {
         event.setCancelled(true);
