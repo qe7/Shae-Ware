@@ -1,5 +1,6 @@
 package wtf.silhouette.shaeware.utils.player;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -7,13 +8,10 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.MathHelper;
 import wtf.silhouette.shaeware.utils.MathUtil;
 
+@UtilityClass
 public final class MovementUtil {
 
   public static final double WALK_SPEED = 0.2873;
-
-  private MovementUtil() {
-    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-  }
 
   public static boolean isMoving() {
     if (MinecraftClient.getInstance().player == null) {

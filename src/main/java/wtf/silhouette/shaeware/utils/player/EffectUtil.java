@@ -1,5 +1,6 @@
 package wtf.silhouette.shaeware.utils.player;
 
+import lombok.experimental.UtilityClass;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -9,11 +10,8 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
+@UtilityClass
 public final class EffectUtil {
-
-  private EffectUtil() {
-    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-  }
 
   public static boolean hasGoodEffects() {
     if (MinecraftClient.getInstance().player == null) {

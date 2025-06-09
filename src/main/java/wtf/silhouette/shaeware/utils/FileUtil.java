@@ -1,19 +1,17 @@
 package wtf.silhouette.shaeware.utils;
 
+import lombok.experimental.UtilityClass;
 import wtf.silhouette.shaeware.ShaeWare;
 
 import java.io.File;
 import java.nio.file.Files;
 
+@UtilityClass
 public final class FileUtil {
 
   private static final String FILE_EXTENSION = ".json";
 
   private static final String FILE_DIRECTORY = System.getProperty("user.home") + File.separator + "shaeware" + File.separator;
-
-  private FileUtil() {
-    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
-  }
 
   public static void createDirectory() {
     File directory = new File(FILE_DIRECTORY);
