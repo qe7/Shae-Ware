@@ -76,7 +76,6 @@ public class ImGuiApplication extends Application {
       if (modIndex >= 0 && modIndex < modules.size()) {
         AbstractModule active = modules.get(modIndex);
         ImGui.pushID(active.getName());
-        ImGui.text(active.getName());
         ImGui.textWrapped(active.getDescription());
 
         ImGui.separator();
