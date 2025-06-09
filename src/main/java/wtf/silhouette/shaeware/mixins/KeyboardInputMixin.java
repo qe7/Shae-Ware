@@ -12,7 +12,7 @@ import wtf.silhouette.shaeware.core.bus.EventManager;
 @Mixin(KeyboardInput.class)
 public final class KeyboardInputMixin {
 
-  @Inject(at = @At("RETURN"), method = "tick()V")
+  @Inject(method = "tick()V", at = @At("RETURN"))
   public void tick(CallbackInfo ci) {
     ManagerFactory.get(EventManager.class).publishEvent(new MovementInputEvent());
   }

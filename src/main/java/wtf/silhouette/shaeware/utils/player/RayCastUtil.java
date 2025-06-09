@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.utils;
+package wtf.silhouette.shaeware.utils.player;
 
 import com.google.common.base.Predicates;
 import lombok.experimental.UtilityClass;

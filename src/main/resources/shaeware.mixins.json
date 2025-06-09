@@ -6,6 +6,7 @@
     "ClientPlayerEntityMixin",
     "EntityMixin",
     "EntityRendererMixin",
+    "HeldItemRendererMixin",
     "InGameHudMixin",
     "KeyboardInputMixin",
     "KeyboardMixin",
@@ -14,6 +15,8 @@
     "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerEntityRendererMixin",
+    "accessors.BoundKeyAccessor",
+    "accessors.ClientPlayerEntityAccessor",
     "accessors.ClientPlayerInteractionManagerAccessor",
     "accessors.GameRendererAccessor",
     "accessors.WorldRendererAccessor"

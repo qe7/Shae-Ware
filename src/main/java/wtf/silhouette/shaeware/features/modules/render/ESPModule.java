@@ -47,6 +47,9 @@ public final class ESPModule extends AbstractModule {
     final BooleanSupplier isItemMode = () -> displayMode.getValue() == SettingDisplayMode.ITEM;
 
     playerMaster.supplyIf(isPlayerMode);
+    nameTagMaster.supplyIf(isPlayerMode);
+    healthNameTag.supplyIf(isPlayerMode);
+    distanceNameTag.supplyIf(isPlayerMode);
 
     chestMaster.supplyIf(isChestMode);
 

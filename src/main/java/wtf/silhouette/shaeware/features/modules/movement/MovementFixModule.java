@@ -15,7 +15,7 @@ import wtf.silhouette.shaeware.core.feature.module.ModuleManager;
 
 public final class MovementFixModule extends AbstractModule {
 
-  private static final EnumSetting<FixMode> mode = new EnumSetting<>("Mode", FixMode.OFF);
+  private static final EnumSetting<FixMode> mode = new EnumSetting<>("Mode", FixMode.ADVANCED);
 
   public MovementFixModule() {
     super("Movement Fix", "Makes the clients rotations always abide by Minecraft's strafing.", ModuleCategory.MOVEMENT);
@@ -35,7 +35,6 @@ public final class MovementFixModule extends AbstractModule {
 
   @AllArgsConstructor
   public enum FixMode implements IEnumSetting {
-    OFF("Off", RotationComponent.MovementFixMode.OFF),
     BASIC("Basic", RotationComponent.MovementFixMode.BASIC),
     ADVANCED("Advanced", RotationComponent.MovementFixMode.ADVANCED);
 

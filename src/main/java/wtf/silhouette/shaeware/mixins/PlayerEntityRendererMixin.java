@@ -3,7 +3,11 @@ package wtf.silhouette.shaeware.mixins;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -12,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
 import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.features.modules.combat.killaura.KillAuraModule;
 
 @Mixin(PlayerEntityRenderer.class)
 public final class PlayerEntityRendererMixin {
@@ -67,6 +72,25 @@ public final class PlayerEntityRendererMixin {
           lastPitch = currentPitch + angleDiff * t;
           state.pitch = lastPitch;
         }
+      }
+    }
+  }
+
+  @Inject(
+          method = "updateRenderState(Lnet/minecraft/client/network/AbstractClientPlayerEntity;Lnet/minecraft/client/render/entity/state/PlayerEntityRenderState;F)V",
+          at = @At("RETURN")
+  )
+  private void onUpdateRenderState(AbstractClientPlayerEntity player, PlayerEntityRenderState state, float tickDelta, CallbackInfo ci) {
+    if (player == MinecraftClient.getInstance().player && KillAuraModule.isBlocking()) {
+      ItemStack offStack = player.getStackInHand(Hand.OFF_HAND);
+      Arm mainArm = player.getMainArm();
+
+      if (mainArm == Arm.RIGHT) {
+        state.rightArmPose = BipedEntityModel.ArmPose.BLOCK;
+        state.leftArmPose = offStack.isEmpty() ? BipedEntityModel.ArmPose.EMPTY : BipedEntityModel.ArmPose.ITEM;
+      } else {
+        state.leftArmPose = BipedEntityModel.ArmPose.BLOCK;
+        state.rightArmPose = offStack.isEmpty() ? BipedEntityModel.ArmPose.EMPTY : BipedEntityModel.ArmPose.ITEM;
       }
     }
   }
