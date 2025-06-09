@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.features.modules.combat;
+package wtf.silhouette.shaeware.features.modules.combat.killaura;
 
 import wtf.silhouette.shaeware.core.feature.module.AbstractModule;
 import wtf.silhouette.shaeware.core.feature.module.ModuleCategory;
