@@ -96,23 +96,21 @@ public final class HUDModule extends AbstractModule {
     }
 
     if (effects.getValue()) {
-      if (!EffectUtil.hasEffects()) {
-        return;
-      }
+      if (EffectUtil.hasEffects()) {
+        final List<StatusEffectInstance> effects = EffectUtil.getEffects();
 
-      final List<StatusEffectInstance> effects = EffectUtil.getEffects();
+        int targetOffsetRightBottom = offsetRightBottom;
 
-      int targetOffsetRightBottom = offsetRightBottom;
+        for (StatusEffectInstance effect : effects) {
+          String string = EffectUtil.getStatusEffectDescription(effect).getString() + ": " + Formatting.WHITE + effect.getDuration() / 20 + "s";
+          if (lowerCase.getValue()) string = string.toLowerCase(Locale.ROOT);
+          drawContext.drawText(textRenderer, string, event.context().getScaledWindowWidth() - textRenderer.getWidth(string) - 2, targetOffsetRightBottom, color.getValue().getRGB(), true);
+          targetOffsetRightBottom -= textRenderer.fontHeight + 1;
+        }
 
-      for (StatusEffectInstance effect : effects) {
-        String string = EffectUtil.getStatusEffectDescription(effect).getString() + ": " + Formatting.WHITE + effect.getDuration() / 20 + "s";
-        if (lowerCase.getValue()) string = string.toLowerCase(Locale.ROOT);
-        drawContext.drawText(textRenderer, string, event.context().getScaledWindowWidth() - textRenderer.getWidth(string) - 2, targetOffsetRightBottom, color.getValue().getRGB(), true);
-        targetOffsetRightBottom -= textRenderer.fontHeight + 1;
-      }
-
-      if (targetOffsetRightBottom < offsetRightBottom - textRenderer.fontHeight - 1) {
-        offsetRightBottom = targetOffsetRightBottom;
+        if (targetOffsetRightBottom < offsetRightBottom - textRenderer.fontHeight - 1) {
+          offsetRightBottom = targetOffsetRightBottom;
+        }
       }
     }
 
