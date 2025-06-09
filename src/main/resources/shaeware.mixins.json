@@ -5,6 +5,7 @@
   "client": [
     "ClientPlayerEntityMixin",
     "EntityMixin",
+    "EntityRendererMixin",
     "InGameHudMixin",
     "KeyboardInputMixin",
     "KeyboardMixin",
@@ -13,7 +14,9 @@
     "MinecraftClientMixin",
     "PlayerEntityMixin",
     "PlayerEntityRendererMixin",
-    "accessors.ClientPlayerInteractionManagerAccessor"
+    "accessors.ClientPlayerInteractionManagerAccessor",
+    "accessors.GameRendererAccessor",
+    "accessors.WorldRendererAccessor"
   ],
   "mixins": [
     "ClientConnectionMixin",
