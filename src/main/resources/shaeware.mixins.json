@@ -8,6 +8,7 @@
     "EntityRendererMixin",
     "HeldItemRendererMixin",
     "InGameHudMixin",
+    "InputMixin",
     "KeyboardInputMixin",
     "KeyboardMixin",
     "LivingEntityMixin",

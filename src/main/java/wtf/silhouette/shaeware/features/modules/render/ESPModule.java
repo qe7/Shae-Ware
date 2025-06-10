@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.Text;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL32;
 import wtf.silhouette.shaeware.core.bus.Listener;
