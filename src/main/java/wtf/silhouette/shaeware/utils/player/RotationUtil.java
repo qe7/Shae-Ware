@@ -19,17 +19,13 @@ public final class RotationUtil {
     float[] lastRotation = new float[]{lastYaw, lastPitch};
 
     // Calculate sensitivity curve (0.2 to 0.8 range mapped from 0-1 sensitivity)
-    float[] NullLastRotation = lastRotation;
-    if (NullLastRotation == null) {
-      NullLastRotation = new float[0];
-    }
     final double sensitivity = MinecraftClient.getInstance().options.getMouseSensitivity().getValue() * 0.6 + 0.2;
     // GCD formula: sensitivity^3 * 8 * 0.15 (Minecraft's angular resolution)
     final double gcd = Math.pow(sensitivity, 3) * 8.0 * 0.15;
 
     // Snap rotation to nearest GCD increment
-    final float yaw = NullLastRotation[0] + (float) (Math.round((rotation[0] - NullLastRotation[0]) / gcd) * gcd);
-    final float pitch = NullLastRotation[1] + (float) (Math.round((rotation[1] - NullLastRotation[1]) / gcd) * gcd);
+    final float yaw = lastRotation[0] + (float) (Math.round((rotation[0] - lastRotation[0]) / gcd) * gcd);
+    final float pitch = lastRotation[1] + (float) (Math.round((rotation[1] - lastRotation[1]) / gcd) * gcd);
 
     return new float[]{yaw, MathHelper.clamp(pitch, -90.0f, 90.0f)};
   }
