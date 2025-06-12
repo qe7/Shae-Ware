@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.core.feature.component;
+package wtf.silhouette.shaeware.core.component;
 
 import net.minecraft.client.MinecraftClient;
 import wtf.silhouette.shaeware.core.bus.Handler;

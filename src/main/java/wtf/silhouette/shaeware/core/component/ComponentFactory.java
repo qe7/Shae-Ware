@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.core.feature.component;
+package wtf.silhouette.shaeware.core.component;
 
 import org.jetbrains.annotations.NotNull;
 

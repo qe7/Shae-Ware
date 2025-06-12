@@ -3,10 +3,10 @@ package wtf.silhouette.shaeware.features.modules.misc;
 import wtf.silhouette.shaeware.core.bus.Listener;
 import wtf.silhouette.shaeware.core.bus.SubscribeEvent;
 import wtf.silhouette.shaeware.core.bus.impl.player.TickEvent;
-import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
+import wtf.silhouette.shaeware.core.component.ComponentFactory;
 import wtf.silhouette.shaeware.core.feature.module.AbstractModule;
 import wtf.silhouette.shaeware.core.feature.module.ModuleCategory;
-import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.components.RotationComponent;
 
 public final class SpinBotModule extends AbstractModule {
 

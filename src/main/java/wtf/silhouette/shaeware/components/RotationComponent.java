@@ -1,4 +1,4 @@
-package wtf.silhouette.shaeware.features.components;
+package wtf.silhouette.shaeware.components;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import wtf.silhouette.shaeware.core.bus.impl.player.JumpEvent;
 import wtf.silhouette.shaeware.core.bus.impl.player.MotionEvent;
 import wtf.silhouette.shaeware.core.bus.impl.player.MovementInputEvent;
 import wtf.silhouette.shaeware.core.bus.impl.player.StrafeEvent;
-import wtf.silhouette.shaeware.core.feature.component.Component;
+import wtf.silhouette.shaeware.core.component.Component;
 import wtf.silhouette.shaeware.core.feature.module.settings.impl.interfaces.IEnumSetting;
 import wtf.silhouette.shaeware.features.modules.movement.MovementFixModule;
 import wtf.silhouette.shaeware.core.manager.ManagerFactory;

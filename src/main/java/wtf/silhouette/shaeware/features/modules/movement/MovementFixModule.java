@@ -5,7 +5,7 @@ import lombok.Getter;
 import wtf.silhouette.shaeware.core.bus.Listener;
 import wtf.silhouette.shaeware.core.bus.SubscribeEvent;
 import wtf.silhouette.shaeware.core.bus.impl.render.ScreenEvent;
-import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.components.RotationComponent;
 import wtf.silhouette.shaeware.core.feature.module.AbstractModule;
 import wtf.silhouette.shaeware.core.feature.module.ModuleCategory;
 import wtf.silhouette.shaeware.core.feature.module.settings.impl.EnumSetting;

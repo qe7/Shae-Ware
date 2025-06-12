@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
-import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.core.component.ComponentFactory;
+import wtf.silhouette.shaeware.components.RotationComponent;
 import wtf.silhouette.shaeware.features.modules.combat.killaura.KillAuraModule;
 
 @Mixin(PlayerEntityRenderer.class)

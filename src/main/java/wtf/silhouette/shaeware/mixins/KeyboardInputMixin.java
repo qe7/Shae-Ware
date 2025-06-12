@@ -2,21 +2,17 @@ package wtf.silhouette.shaeware.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.input.Input;
 import net.minecraft.client.input.KeyboardInput;
 import net.minecraft.util.PlayerInput;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.core.bus.impl.player.MovementInputEvent;
-import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
+import wtf.silhouette.shaeware.core.component.ComponentFactory;
 import wtf.silhouette.shaeware.core.manager.ManagerFactory;
-import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.components.RotationComponent;
 import wtf.silhouette.shaeware.utils.player.DirectionalInput;
 
 @Mixin(KeyboardInput.class)
@@ -43,8 +39,8 @@ public abstract class KeyboardInputMixin extends InputMixin {
             untransformedDirectionalInput.left(),
             untransformedDirectionalInput.right(),
             MinecraftClient.getInstance().options.jumpKey.isPressed(),
-            MinecraftClient.getInstance().player.isSneaking(),
-            MinecraftClient.getInstance().player.isSprinting()
+            MinecraftClient.getInstance().options.sneakKey.isPressed(),
+            MinecraftClient.getInstance().options.sprintKey.isPressed()
     );
 
     return new PlayerInput(
@@ -53,8 +49,8 @@ public abstract class KeyboardInputMixin extends InputMixin {
             directionalInput.left(),
             directionalInput.right(),
             MinecraftClient.getInstance().options.jumpKey.isPressed(),
-            MinecraftClient.getInstance().player.isSneaking(),
-            MinecraftClient.getInstance().player.isSprinting()
+            MinecraftClient.getInstance().options.sneakKey.isPressed(),
+            MinecraftClient.getInstance().options.sprintKey.isPressed()
     );
   }
 

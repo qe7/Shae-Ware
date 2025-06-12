@@ -10,8 +10,8 @@ import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import wtf.silhouette.shaeware.core.feature.component.ComponentFactory;
-import wtf.silhouette.shaeware.features.components.RotationComponent;
+import wtf.silhouette.shaeware.core.component.ComponentFactory;
+import wtf.silhouette.shaeware.components.RotationComponent;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingEntityRenderState, M extends EntityModel<? super S>> {
