@@ -2,15 +2,15 @@ package wtf.silhouette.shaeware.core.feature.module;
 
 public interface Toggleable {
 
-  void setEnabled(boolean enabled);
+    void setEnabled(boolean enabled);
 
-  boolean isEnabled();
+    boolean isEnabled();
 
-  void toggle();
+    void toggle();
 
-  default void onEnable() {
-  }
+    default void onEnable() {
+    }
 
-  default void onDisable() {
-  }
+    default void onDisable() {
+    }
 }

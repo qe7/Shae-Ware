@@ -10,5 +10,5 @@ import wtf.silhouette.shaeware.core.bus.Event;
 @Setter
 public final class StrafeEvent implements Event {
 
-  private float moveSpeed, yaw;
+    private float moveSpeed, yaw;
 }

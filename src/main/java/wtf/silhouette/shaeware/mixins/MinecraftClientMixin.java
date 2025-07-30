@@ -12,15 +12,15 @@ import wtf.silhouette.shaeware.platform.gui.ImGuiClickGui;
 @Mixin(MinecraftClient.class)
 public final class MinecraftClientMixin {
 
-  @Unique
-  private boolean initialized;
+    @Unique
+    private boolean initialized;
 
-  @Inject(at = @At("HEAD"), method = "render(Z)V")
-  private void render(boolean tick, CallbackInfo callbackInfo) {
-    if (!initialized && ShaeWare.getInstance().isInitialized()) {
-      ImGuiClickGui.INSTANCE.initialize();
+    @Inject(at = @At("HEAD"), method = "render(Z)V")
+    private void render(boolean tick, CallbackInfo callbackInfo) {
+        if (!initialized && ShaeWare.getInstance().isInitialized()) {
+            ImGuiClickGui.INSTANCE.initialize();
 
-      initialized = true;
+            initialized = true;
+        }
     }
-  }
 }

@@ -12,16 +12,16 @@ import wtf.silhouette.shaeware.features.modules.combat.velocity.impl.PacketVeloc
 
 public final class VelocityModule extends AbstractModule {
 
-  @Getter
-  private final ModeSetting mode = new ModeSetting("Mode", "Packet", new PacketVelocityMode(this, "Packet"), new JumpVelocityMode(this, "Jump"));
+    @Getter
+    private final ModeSetting mode = new ModeSetting("Mode", "Packet", new PacketVelocityMode(this, "Packet"), new JumpVelocityMode(this, "Jump"));
 
-  public VelocityModule() {
-    super("Velocity", "Reduced or removes velocity.", ModuleCategory.COMBAT);
-  }
+    public VelocityModule() {
+        super("Velocity", "Reduced or removes velocity.", ModuleCategory.COMBAT);
+    }
 
-  @SubscribeEvent
-  private final Listener<ScreenEvent> screenEventListener = event -> {
-    if (mode.getValue() instanceof PacketVelocityMode) return;
-    this.setSuffix(mode.getValue().getName());
-  };
+    @SubscribeEvent
+    private final Listener<ScreenEvent> screenEventListener = event -> {
+        if (mode.getValue() instanceof PacketVelocityMode) return;
+        this.setSuffix(mode.getValue().getName());
+    };
 }

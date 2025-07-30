@@ -5,7 +5,6 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,16 +30,16 @@ public abstract class EntityRendererMixin<T extends Entity, S extends EntityRend
 
     @Inject(method = "renderLabelIfPresent", at = @At("HEAD"), cancellable = true)
     private void interceptRenderLabelIfPresent(S state, Text text, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-      if (!ManagerFactory.isRegistered(ModuleManager.class)) {
-        return;
-      }
+        if (!ManagerFactory.isRegistered(ModuleManager.class)) {
+            return;
+        }
 
-      ESPModule module = (ESPModule) ManagerFactory.get(ModuleManager.class).get(ESPModule.class);
+        ESPModule module = (ESPModule) ManagerFactory.get(ModuleManager.class).get(ESPModule.class);
 
-      if (module.isEnabled() && module.getNameTagMaster()) {
-          if (capturedEntity instanceof PlayerEntity) {
-              ci.cancel();
-          }
-      }
+        if (module.isEnabled() && module.getNameTagMaster()) {
+            if (capturedEntity instanceof PlayerEntity) {
+                ci.cancel();
+            }
+        }
     }
 }

@@ -11,31 +11,31 @@ import wtf.silhouette.shaeware.core.bus.CancellableEvent;
 @Setter
 public final class PacketEvent implements CancellableEvent {
 
-  private final Type type;
+    private final Type type;
 
-  private final Packet<?> packet;
+    private final Packet<?> packet;
 
-  private boolean cancelled;
+    private boolean cancelled;
 
-  public boolean isIncoming() {
-    return type == Type.INCOMING;
-  }
+    public boolean isIncoming() {
+        return type == Type.INCOMING;
+    }
 
-  public boolean isOutgoing() {
-    return type == Type.OUTGOING;
-  }
+    public boolean isOutgoing() {
+        return type == Type.OUTGOING;
+    }
 
-  @Override
-  public boolean isCancelled() {
-    return cancelled;
-  }
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
+    }
 
-  @Override
-  public void setCancelled(boolean cancelled) {
-    this.cancelled = cancelled;
-  }
+    @Override
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 
-  public enum Type {
-    INCOMING, OUTGOING
-  }
+    public enum Type {
+        INCOMING, OUTGOING
+    }
 }

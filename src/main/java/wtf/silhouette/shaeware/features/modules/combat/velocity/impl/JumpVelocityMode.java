@@ -10,31 +10,31 @@ import wtf.silhouette.shaeware.features.modules.combat.velocity.VelocityModule;
 
 public final class JumpVelocityMode extends AbstractModuleMode<VelocityModule> {
 
-  private boolean hasJumped;
+    private boolean hasJumped;
 
-  public JumpVelocityMode(VelocityModule module, String name) {
-    super(module, name);
-  }
-
-  @SubscribeEvent
-  private final Listener<TickEvent> tickEventListener = event -> {
-    if (hasJumped) {
-      mc.options.jumpKey.setPressed(false);
-      hasJumped = false;
+    public JumpVelocityMode(VelocityModule module, String name) {
+        super(module, name);
     }
-  };
 
-  @SubscribeEvent
-  private final Listener<PacketEvent> packetEventListener = event -> {
-    if (!event.isIncoming() || mc.player == null) return;
+    @SubscribeEvent
+    private final Listener<TickEvent> tickEventListener = event -> {
+        if (hasJumped) {
+            mc.options.jumpKey.setPressed(false);
+            hasJumped = false;
+        }
+    };
 
-    if (event.getPacket() instanceof EntityVelocityUpdateS2CPacket packet) {
-      if (packet.getEntityId() != mc.player.getId()) return;
+    @SubscribeEvent
+    private final Listener<PacketEvent> packetEventListener = event -> {
+        if (!event.isIncoming() || mc.player == null) return;
 
-      if (mc.player.isOnGround()) {
-        mc.options.jumpKey.setPressed(true);
-        hasJumped = true;
-      }
-    }
-  };
+        if (event.getPacket() instanceof EntityVelocityUpdateS2CPacket packet) {
+            if (packet.getEntityId() != mc.player.getId()) return;
+
+            if (mc.player.isOnGround()) {
+                mc.options.jumpKey.setPressed(true);
+                hasJumped = true;
+            }
+        }
+    };
 }

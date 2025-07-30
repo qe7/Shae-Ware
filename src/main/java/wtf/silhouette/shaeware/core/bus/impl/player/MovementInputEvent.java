@@ -11,7 +11,7 @@ import wtf.silhouette.shaeware.utils.player.DirectionalInput;
 @Setter
 public class MovementInputEvent implements Event {
 
-  private DirectionalInput directionalInput;
-  private boolean jump;
-  private boolean sneak;
+    private DirectionalInput directionalInput;
+    private boolean jump;
+    private boolean sneak;
 }

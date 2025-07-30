@@ -7,29 +7,29 @@ import wtf.silhouette.shaeware.platform.gui.ImGuiClickGui;
 
 public final class ClickGUIModule extends AbstractModule {
 
-  public ClickGUIModule() {
-    super("Click GUI", "Displays a clickable interface to manage modules.", ModuleCategory.CLIENT);
+    public ClickGUIModule() {
+        super("Click GUI", "Displays a clickable interface to manage modules.", ModuleCategory.CLIENT);
 
-    this.setKeyBind(GLFW.GLFW_KEY_RIGHT_SHIFT);
-  }
-
-  @Override
-  public void onEnable() {
-    if (mc.world == null || mc.player == null) {
-      this.setEnabled(false);
-      return;
+        this.setKeyBind(GLFW.GLFW_KEY_RIGHT_SHIFT);
     }
 
-    super.onEnable();
-    mc.setScreen(ImGuiClickGui.INSTANCE);
-  }
+    @Override
+    public void onEnable() {
+        if (mc.world == null || mc.player == null) {
+            this.setEnabled(false);
+            return;
+        }
 
-  @Override
-  public void onDisable() {
-    super.onDisable();
-
-    if (mc.currentScreen == ImGuiClickGui.INSTANCE) {
-      mc.setScreen(null);
+        super.onEnable();
+        mc.setScreen(ImGuiClickGui.INSTANCE);
     }
-  }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+
+        if (mc.currentScreen == ImGuiClickGui.INSTANCE) {
+            mc.setScreen(null);
+        }
+    }
 }

@@ -15,14 +15,14 @@ import wtf.silhouette.shaeware.core.manager.ManagerFactory;
 @Mixin(LivingEntity.class)
 public final class LivingEntityMixin {
 
-  @Redirect(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
-  public float redirectYaw(LivingEntity entity) {
-    if (entity == MinecraftClient.getInstance().player) {
-      JumpEvent event = new JumpEvent(entity.getYaw());
-      ManagerFactory.get(EventManager.class).publishEvent(event);
-      return event.getYaw();
-    }
+    @Redirect(method = "jump", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
+    public float redirectYaw(LivingEntity entity) {
+        if (entity == MinecraftClient.getInstance().player) {
+            JumpEvent event = new JumpEvent(entity.getYaw());
+            ManagerFactory.get(EventManager.class).publishEvent(event);
+            return event.getYaw();
+        }
 
-    return entity.getYaw();
-  }
+        return entity.getYaw();
+    }
 }

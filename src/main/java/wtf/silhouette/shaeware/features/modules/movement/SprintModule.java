@@ -8,19 +8,19 @@ import wtf.silhouette.shaeware.core.feature.module.ModuleCategory;
 
 public final class SprintModule extends AbstractModule {
 
-  public SprintModule() {
-    super("Sprint", "Automatically sprints for the player.", ModuleCategory.MOVEMENT);
-  }
+    public SprintModule() {
+        super("Sprint", "Automatically sprints for the player.", ModuleCategory.MOVEMENT);
+    }
 
-  @Override
-  public void onDisable() {
-    super.onDisable();
+    @Override
+    public void onDisable() {
+        super.onDisable();
 
-    mc.options.sprintKey.setPressed(false);
-  }
+        mc.options.sprintKey.setPressed(false);
+    }
 
-  @SubscribeEvent
-  private final Listener<TickEvent> tickEventListener = event -> {
-    mc.options.sprintKey.setPressed(true);
-  };
+    @SubscribeEvent
+    private final Listener<TickEvent> tickEventListener = event -> {
+        mc.options.sprintKey.setPressed(true);
+    };
 }

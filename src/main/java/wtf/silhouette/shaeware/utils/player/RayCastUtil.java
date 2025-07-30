@@ -9,6 +9,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.RaycastContext;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 @UtilityClass
 public final class RayCastUtil {
@@ -32,7 +34,8 @@ public final class RayCastUtil {
         return ProjectileUtil.raycast(mc.player, vec3d, vec3d3, box, Predicates.alwaysTrue(), maxDistance * maxDistance);
     }
 
-    public static Vec3d getCameraPosVec(final float tickDelta, final Entity entity) {
+    @Contract("_, _ -> new")
+    public static @NotNull Vec3d getCameraPosVec(final float tickDelta, final @NotNull Entity entity) {
         final double d = MathHelper.lerp(tickDelta, entity.prevX, entity.getX());
         final double e = MathHelper.lerp(tickDelta, entity.prevY, entity.getY()) + (double) entity.getStandingEyeHeight();
         final double f = MathHelper.lerp(tickDelta, entity.prevZ, entity.getZ());
@@ -40,7 +43,8 @@ public final class RayCastUtil {
     }
 
 
-    public static Vec3d getRotationVector(final float pitch, final float yaw) {
+    @Contract("_, _ -> new")
+    public static @NotNull Vec3d getRotationVector(final float pitch, final float yaw) {
         float f = pitch * 0.017453292F;
         float g = -yaw * 0.017453292F;
         float h = MathHelper.cos(g);
@@ -50,7 +54,7 @@ public final class RayCastUtil {
         return new Vec3d(i * j, -k, h * j);
     }
 
-    public static boolean isOverBlock(Vec2f rotations, BlockPos blockPos, Direction direction) {
+    public static boolean isOverBlock(@NotNull Vec2f rotations, BlockPos blockPos, Direction direction) {
         final HitResult hitResult = raycast(5, 1, false, rotations.x, rotations.y);
         if (hitResult.getType() == HitResult.Type.BLOCK) {
             final BlockHitResult blockHitResult = (BlockHitResult) hitResult;

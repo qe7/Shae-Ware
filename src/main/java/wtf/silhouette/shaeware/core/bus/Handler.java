@@ -1,7 +1,7 @@
 package wtf.silhouette.shaeware.core.bus;
 
 public interface Handler {
-  default boolean listening() {
-    return true;
-  }
+    default boolean listening() {
+        return true;
+    }
 }

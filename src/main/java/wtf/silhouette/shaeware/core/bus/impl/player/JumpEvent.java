@@ -10,5 +10,5 @@ import wtf.silhouette.shaeware.core.bus.Event;
 @Setter
 public final class JumpEvent implements Event {
 
-  private float yaw;
+    private float yaw;
 }

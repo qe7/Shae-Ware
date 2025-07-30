@@ -15,41 +15,41 @@ import java.util.function.BooleanSupplier;
 
 public final class GroundSpeedMode extends AbstractModuleMode<SpeedModule> {
 
-  private final FloatSetting speed = new FloatSetting("Speed", 0.3F, 0.1F, 1.0F, 0.05f);
+    private final FloatSetting speed = new FloatSetting("Speed", 0.3F, 0.1F, 1.0F, 0.05f);
 
-  public GroundSpeedMode(SpeedModule module, String name) {
-    super(module, name);
+    public GroundSpeedMode(SpeedModule module, String name) {
+        super(module, name);
 
-    BooleanSupplier booleanSupplier = () -> module.getMode().getValue().getName() == name;
+        BooleanSupplier booleanSupplier = () -> module.getMode().getValue().getName() == name;
 
-    speed.supplyIf(booleanSupplier);
-  }
-
-  @SubscribeEvent
-  private final Listener<MotionEvent> motionEventListener = event -> {
-    if (mc.world == null || mc.player == null) {
-      return;
+        speed.supplyIf(booleanSupplier);
     }
 
-    if (!MovementUtil.isMoving()) {
-      return;
-    }
+    @SubscribeEvent
+    private final Listener<MotionEvent> motionEventListener = event -> {
+        if (mc.world == null || mc.player == null) {
+            return;
+        }
 
-    float speed = this.speed.getValue();
+        if (!MovementUtil.isMoving()) {
+            return;
+        }
 
-    StatusEffectInstance speedEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SPEED);
-    StatusEffectInstance slowdownEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SLOWNESS);
+        float speed = this.speed.getValue();
 
-    if (speedEffect != null && speedEffect.getEffectType() == StatusEffects.SPEED) {
-      speed *= (float) (1 + 0.2 * (speedEffect.getAmplifier() + 1));
-    }
+        StatusEffectInstance speedEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SPEED);
+        StatusEffectInstance slowdownEffect = MinecraftClient.getInstance().player.getStatusEffect(StatusEffects.SLOWNESS);
 
-    if (slowdownEffect != null && slowdownEffect.getEffectType() == StatusEffects.SLOWNESS) {
-      speed /= (float) (1 + 0.2 * (slowdownEffect.getAmplifier() + 1));
-    }
+        if (speedEffect != null && speedEffect.getEffectType() == StatusEffects.SPEED) {
+            speed *= (float) (1 + 0.2 * (speedEffect.getAmplifier() + 1));
+        }
 
-    if (mc.player.isOnGround()) {
-      MovementUtil.setSpeed(speed);
-    }
-  };
+        if (slowdownEffect != null && slowdownEffect.getEffectType() == StatusEffects.SLOWNESS) {
+            speed /= (float) (1 + 0.2 * (slowdownEffect.getAmplifier() + 1));
+        }
+
+        if (mc.player.isOnGround()) {
+            MovementUtil.setSpeed(speed);
+        }
+    };
 }

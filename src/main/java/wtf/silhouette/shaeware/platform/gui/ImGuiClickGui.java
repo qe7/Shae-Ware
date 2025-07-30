@@ -12,33 +12,33 @@ import wtf.silhouette.shaeware.features.modules.client.ClickGUIModule;
 
 public final class ImGuiClickGui extends Screen implements Handler {
 
-  public static final ImGuiClickGui INSTANCE = new ImGuiClickGui();
+    public static final ImGuiClickGui INSTANCE = new ImGuiClickGui();
 
-  private final ImGuiApplication application = new ImGuiApplication();
+    private final ImGuiApplication application = new ImGuiApplication();
 
-  public ImGuiClickGui() {
-    super(Text.of("ImGui"));
-    ManagerFactory.get(EventManager.class).registerHandler(this);
-  }
+    public ImGuiClickGui() {
+        super(Text.of("ImGui"));
+        ManagerFactory.get(EventManager.class).registerHandler(this);
+    }
 
-  @Override
-  public boolean shouldCloseOnEsc() {
-    return !application.isListeningForKey();
-  }
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return !application.isListeningForKey();
+    }
 
-  @Override
-  public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-    application.runFrame();
-  }
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        application.runFrame();
+    }
 
-  @Override
-  public void close() {
-    super.close();
+    @Override
+    public void close() {
+        super.close();
 
-    ManagerFactory.get(ModuleManager.class).get(ClickGUIModule.class).setEnabled(false);
-  }
+        ManagerFactory.get(ModuleManager.class).get(ClickGUIModule.class).setEnabled(false);
+    }
 
-  public void initialize() {
-    Application.launch(application);
-  }
+    public void initialize() {
+        Application.launch(application);
+    }
 }

@@ -13,19 +13,19 @@ import wtf.silhouette.shaeware.features.modules.movement.speed.impl.LegitSpeedMo
 
 public final class SpeedModule extends AbstractModule {
 
-  @Getter
-  private final ModeSetting mode = new ModeSetting("Mode", "Legit",
-          new LegitSpeedMode(this, "Legit"),
-          new GroundSpeedMode(this, "Ground"),
-          new GroundStrafeSpeedMode(this, "Ground Strafe")
-  );
+    @Getter
+    private final ModeSetting mode = new ModeSetting("Mode", "Legit",
+            new LegitSpeedMode(this, "Legit"),
+            new GroundSpeedMode(this, "Ground"),
+            new GroundStrafeSpeedMode(this, "Ground Strafe")
+    );
 
-  public SpeedModule() {
-    super("Speed", "Modifies the player's velocity to make movement faster.", ModuleCategory.MOVEMENT);
-  }
+    public SpeedModule() {
+        super("Speed", "Modifies the player's velocity to make movement faster.", ModuleCategory.MOVEMENT);
+    }
 
-  @SubscribeEvent
-  private final Listener<ScreenEvent> screenEventListener = event -> {
-    this.setSuffix(mode.getValue().getName());
-  };
+    @SubscribeEvent
+    private final Listener<ScreenEvent> screenEventListener = event -> {
+        this.setSuffix(mode.getValue().getName());
+    };
 }

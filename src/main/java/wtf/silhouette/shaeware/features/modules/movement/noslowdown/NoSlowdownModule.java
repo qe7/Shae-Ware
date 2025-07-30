@@ -11,12 +11,12 @@ import wtf.silhouette.shaeware.features.modules.movement.noslowdown.impl.Watchdo
 
 public final class NoSlowdownModule extends AbstractModule {
 
-  private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", new VanillaNoSlowdownMode(this, "Vanilla"), new WatchdogNoSlowdownMode(this, "Watchdog"));
+    private final ModeSetting mode = new ModeSetting("Mode", "Vanilla", new VanillaNoSlowdownMode(this, "Vanilla"), new WatchdogNoSlowdownMode(this, "Watchdog"));
 
-  public NoSlowdownModule() {
-    super("No Slowdown", "Prevent the player from slowing down.", ModuleCategory.MOVEMENT);
-  }
+    public NoSlowdownModule() {
+        super("No Slowdown", "Prevent the player from slowing down.", ModuleCategory.MOVEMENT);
+    }
 
-  @SubscribeEvent
-  private final Listener<ScreenEvent> onScreen = event -> this.setSuffix(this.mode.getValue().getName());
+    @SubscribeEvent
+    private final Listener<ScreenEvent> onScreen = event -> this.setSuffix(this.mode.getValue().getName());
 }

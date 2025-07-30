@@ -5,34 +5,36 @@ import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.core.bus.impl.player.StrafeEvent;
 import wtf.silhouette.shaeware.core.manager.ManagerFactory;
-import wtf.silhouette.shaeware.core.bus.EventManager;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
-  @Shadow
-  protected static Vec3d movementInputToVelocity(Vec3d movementInput, float speed, float yaw){return null;}
+    @Shadow
+    protected static Vec3d movementInputToVelocity(Vec3d movementInput, float speed, float yaw) {
+        return null;
+    }
 
-  @Shadow
-  public abstract float getYaw();
+    @Shadow
+    public abstract float getYaw();
 
-  @Shadow
-  public abstract Vec3d getVelocity();
+    @Shadow
+    public abstract Vec3d getVelocity();
 
-  @Shadow
-  public abstract void setVelocity(Vec3d velocity);
+    @Shadow
+    public abstract void setVelocity(Vec3d velocity);
 
-  /**
-   * @author Shae
-   * @reason Player strafe event implementation
-   */
-  @Overwrite
-  public void updateVelocity(float speed, Vec3d movementInput) {
-    StrafeEvent event = new StrafeEvent(speed, getYaw());
-    ManagerFactory.get(EventManager.class).publishEvent(event);
-    Vec3d vec3d = movementInputToVelocity(movementInput, event.getMoveSpeed(), event.getYaw());
-    this.setVelocity(this.getVelocity().add(vec3d));
-  }
+    /**
+     * @author Shae
+     * @reason Player strafe event implementation
+     */
+    @Overwrite
+    public void updateVelocity(float speed, Vec3d movementInput) {
+        StrafeEvent event = new StrafeEvent(speed, getYaw());
+        ManagerFactory.get(EventManager.class).publishEvent(event);
+        Vec3d vec3d = movementInputToVelocity(movementInput, event.getMoveSpeed(), event.getYaw());
+        this.setVelocity(this.getVelocity().add(vec3d));
+    }
 }

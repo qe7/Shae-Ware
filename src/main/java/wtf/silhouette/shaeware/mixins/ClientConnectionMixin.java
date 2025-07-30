@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.core.bus.impl.game.PacketEvent;
 import wtf.silhouette.shaeware.core.manager.ManagerFactory;
-import wtf.silhouette.shaeware.core.bus.EventManager;
 import wtf.silhouette.shaeware.utils.mixin.IClientConnectionMixin;
 
 import java.util.Queue;
@@ -23,61 +23,61 @@ import java.util.function.Consumer;
 @Mixin(net.minecraft.network.ClientConnection.class)
 public abstract class ClientConnectionMixin implements IClientConnectionMixin {
 
-  @Shadow
-  public abstract boolean isOpen();
+    @Shadow
+    public abstract boolean isOpen();
 
-  @Shadow
-  protected abstract void handleQueuedTasks();
+    @Shadow
+    protected abstract void handleQueuedTasks();
 
-  @Shadow
-  private void sendImmediately(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush) {
-  }
-
-  @Shadow
-  private final Queue<Consumer<net.minecraft.network.ClientConnection>> queuedTasks = Queues.newConcurrentLinkedQueue();
-
-  @Shadow
-  private static <T extends PacketListener> void handlePacket(Packet<T> packet, PacketListener listener) {
-  }
-
-  @Shadow
-  private PacketListener packetListener;
-
-  @Inject(method = "channelRead0*", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", ordinal = 0), cancellable = true)
-  private void onChannelRead0(ChannelHandlerContext ctx, Packet<?> packet, CallbackInfo ci) {
-    PacketEvent event = new PacketEvent(PacketEvent.Type.INCOMING, packet);
-    ManagerFactory.get(EventManager.class).publishEvent(event);
-    if (event.isCancelled()) {
-      ci.cancel();
+    @Shadow
+    private void sendImmediately(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush) {
     }
-  }
 
-  @Inject(method = "send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;)V", at = @At("HEAD"), cancellable = true)
-  private void onSend(Packet<?> packet, @Nullable PacketCallbacks callback, CallbackInfo ci) {
-    PacketEvent event = new PacketEvent(PacketEvent.Type.OUTGOING, packet);
-    ManagerFactory.get(EventManager.class).publishEvent(event);
-    if (event.isCancelled()) {
-      ci.cancel();
+    @Shadow
+    private final Queue<Consumer<net.minecraft.network.ClientConnection>> queuedTasks = Queues.newConcurrentLinkedQueue();
+
+    @Shadow
+    private static <T extends PacketListener> void handlePacket(Packet<T> packet, PacketListener listener) {
     }
-  }
 
-  @Override
-  public void sendPacketNoEvent(Packet<?> packet) {
-    sendPacketNoEvent(packet, null, true);
-  }
+    @Shadow
+    private PacketListener packetListener;
 
-  @Unique
-  private void sendPacketNoEvent(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush) {
-    if (this.isOpen()) {
-      this.handleQueuedTasks();
-      this.sendImmediately(packet, callbacks, flush);
-    } else {
-      this.queuedTasks.add(conn -> this.sendImmediately(packet, callbacks, flush));
+    @Inject(method = "channelRead0*", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/ClientConnection;handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V", ordinal = 0), cancellable = true)
+    private void onChannelRead0(ChannelHandlerContext ctx, Packet<?> packet, CallbackInfo ci) {
+        PacketEvent event = new PacketEvent(PacketEvent.Type.INCOMING, packet);
+        ManagerFactory.get(EventManager.class).publishEvent(event);
+        if (event.isCancelled()) {
+            ci.cancel();
+        }
     }
-  }
 
-  @Override
-  public void processPacket(Packet<?> packet) {
-    handlePacket(packet, packetListener);
-  }
+    @Inject(method = "send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;)V", at = @At("HEAD"), cancellable = true)
+    private void onSend(Packet<?> packet, @Nullable PacketCallbacks callback, CallbackInfo ci) {
+        PacketEvent event = new PacketEvent(PacketEvent.Type.OUTGOING, packet);
+        ManagerFactory.get(EventManager.class).publishEvent(event);
+        if (event.isCancelled()) {
+            ci.cancel();
+        }
+    }
+
+    @Override
+    public void sendPacketNoEvent(Packet<?> packet) {
+        sendPacketNoEvent(packet, null, true);
+    }
+
+    @Unique
+    private void sendPacketNoEvent(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush) {
+        if (this.isOpen()) {
+            this.handleQueuedTasks();
+            this.sendImmediately(packet, callbacks, flush);
+        } else {
+            this.queuedTasks.add(conn -> this.sendImmediately(packet, callbacks, flush));
+        }
+    }
+
+    @Override
+    public void processPacket(Packet<?> packet) {
+        handlePacket(packet, packetListener);
+    }
 }

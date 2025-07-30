@@ -8,10 +8,10 @@ import wtf.silhouette.shaeware.features.modules.movement.noslowdown.NoSlowdownMo
 
 public final class VanillaNoSlowdownMode extends AbstractModuleMode<NoSlowdownModule> {
 
-  public VanillaNoSlowdownMode(NoSlowdownModule module, String name) {
-    super(module, name);
-  }
+    public VanillaNoSlowdownMode(NoSlowdownModule module, String name) {
+        super(module, name);
+    }
 
-  @SubscribeEvent
-  private final Listener<SlowdownEvent> onSlowdown = event -> event.setCancelled(true);
+    @SubscribeEvent
+    private final Listener<SlowdownEvent> onSlowdown = event -> event.setCancelled(true);
 }

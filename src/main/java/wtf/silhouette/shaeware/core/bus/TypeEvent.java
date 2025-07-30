@@ -2,17 +2,17 @@ package wtf.silhouette.shaeware.core.bus;
 
 public interface TypeEvent extends Event {
 
-  Type type();
+    Type type();
 
-  default boolean isPre() {
-    return type() == Type.PRE;
-  }
+    default boolean isPre() {
+        return type() == Type.PRE;
+    }
 
-  default boolean isPost() {
-    return type() == Type.POST;
-  }
+    default boolean isPost() {
+        return type() == Type.POST;
+    }
 
-  enum Type {
-    PRE, POST
-  }
+    enum Type {
+        PRE, POST
+    }
 }
